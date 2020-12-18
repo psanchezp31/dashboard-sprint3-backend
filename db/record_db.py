@@ -16,58 +16,36 @@ class RecordInDB(BaseModel):
 
 #################base de datos################################
 
-
-database_records = Dict[int, RecordInDB]
 database_records = {
     1: RecordInDB(**{"id": 1,
                      "categoria": "Salary",
-                     "tipo": "income",
+                     "tipo": "Income",
                      "cantidad": 3000000,
                      "fecha_registro": datetime(2018, 12, 19).date()
                      }),
     2: RecordInDB(**{"id": 2,
-                     "categoria": "Food",
-                     "tipo": "expense",
+                     "categoria": "Pet",
+                     "tipo": "Expense",
                      "cantidad": 150000,
                      "fecha_registro": datetime(2018, 12, 23).date()
                      }),
     3: RecordInDB(**{"id": 3,
-                     "categoria": "Healthcare",
-                     "tipo": "expense",
+                     "categoria": "Health",
+                     "tipo": "Expense",
                      "cantidad": 45000,
                      "fecha_registro": datetime(2018, 12, 19).date()
                      }),
-
     4: RecordInDB(**{"id": 4,
                      "categoria": "Pet",
-                     "tipo": "expense",
+                     "tipo": "Expense",
                      "cantidad": 500000,
                      "fecha_registro": datetime(2018, 12, 25).date()
                      }),
-
     5: RecordInDB(**{"id": 5,
-                     "categoria": "Pet",
-                     "tipo": "expense",
+                     "categoria": "Food",
+                     "tipo": "Expense",
                      "cantidad": 150000,
                      "fecha_registro": datetime(2018, 12, 26).date()
-                     }),
-    6: RecordInDB(**{"id": 6,
-                     "categoria": "Food",
-                     "tipo": "expense",
-                     "cantidad": 55000,
-                     "fecha_registro": datetime(2019, 1, 2).date()
-                     }),
-    7: RecordInDB(**{"id": 7,
-                     "categoria": "Restaurants",
-                     "tipo": "expense",
-                     "cantidad": 88000,
-                     "fecha_registro": datetime(2019, 1, 3).date()
-                     }),
-    8: RecordInDB(**{"id": 8,
-                     "categoria": "Pet",
-                     "tipo": "expense",
-                     "cantidad": 35000,
-                     "fecha_registro": datetime(2019, 1, 6).date()
                      }),
 }
 
@@ -75,16 +53,19 @@ database_records = {
 ##############métodos para el POST y el GET###################
 generator = {"id": 5}  # AUTOINCREMENTAL
 
-
 def save_record(record_in_db: RecordInDB):  # CREATE RECORD (POST)
-    generator["id"] = generator["id"] + 1
-    record_in_db.id = generator["id"]
-    database_records[record_in_db.id] = record_in_db
+    new_id = generator["id"] + 1
+    generator["id"] = new_id
+    record_in_db.id = new_id
+    database_records[new_id] = record_in_db
     return record_in_db
-
 
 def get_record(id: int):  # READ RECORD (GET)
     if id in database_records.keys():
         return database_records[id]
     else:
         return None
+
+def get_records(): 
+    return database_records
+
