@@ -1,5 +1,5 @@
 from db.record_db import RecordInDB
-from db.record_db import save_record, get_record, get_records
+from db.record_db import save_record, get_record, get_records, delete_record
 from models.record_models import RecordIn, RecordOut
 
 import datetime
@@ -43,3 +43,8 @@ async def get_all_records():
         result.fecha_registro = record.fecha_registro.strftime("%Y-%m-%d")
         results.append(result)
     return results
+
+@api.delete("/record/{id}")
+async def delete_a_record(id: int):
+    get_record(id)
+    return delete_record(id)

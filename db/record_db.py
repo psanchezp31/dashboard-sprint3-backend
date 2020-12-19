@@ -69,3 +69,7 @@ def get_record(id: int):  # READ RECORD (GET)
 def get_records(): 
     return database_records
 
+def delete_record(id: int):
+    delete_response = database_records.pop(id)
+    return delete_response
+
